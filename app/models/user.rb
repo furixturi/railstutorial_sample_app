@@ -21,4 +21,5 @@ class User < ActiveRecord::Base
   # - an "authenticate" method that returns the user when the
   #   password is correct, or "false" if otherwise
   has_secure_password
+  validates :password, presence: true, length: { minimum: 6 }
 end

@@ -10,7 +10,9 @@ class UserTest < ActiveSupport::TestCase
   # every other tests
   def setup
     @user = User.new(name: "Example User", 
-      email: "user@example.com")
+      email: "user@example.com",
+      password: "foobar",
+      password_confirmation: "foobar")
   end
 
   # test passing a valid user
@@ -69,6 +71,17 @@ class UserTest < ActiveSupport::TestCase
     duplicate_user.email = @user.email.upcase
     @user.save
     assert_not duplicate_user.valid?
+  end
+
+  # test password
+  test "password should be present (nonblank)" do
+    @user.password = @user.password_confirmation = " " * 6
+    assert_not @user.valid?
+  end
+
+  test "password should have a minimun length" do
+    @user.password = @user.password_confirmation = " " * 5
+    assert_not @user.valid?
   end
 end
 
