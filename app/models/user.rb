@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   # neutralize user submitted email cases
-  before_save { self.email = email.downcase }
+  before_save { email.downcase! }
 
   # validate name presence and max length
   validates :name, presence: true, length: { maximum: 50 }
