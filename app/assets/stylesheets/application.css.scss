@@ -31,6 +31,23 @@ $gray-medium-light: #eaeaea;
   box-sizing:         border-box;
 }
 
+/* nav */
+.navbar-inverse {
+  .container {
+    position: relative;
+
+    .navbar-right {
+      position: absolute;
+      right: 0;
+      margin-right: 0;
+      
+      li {
+        float: left;
+      }
+    }
+  }
+}
+
 /* Sidebar */
 aside {
   section.user_info {
