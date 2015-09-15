@@ -16,6 +16,7 @@ class UsersController < ApplicationController
 
     if @user.save
       # handle successful save
+      redirect_to @user # equals to user_url(@user)
     else
       render 'new'
     end
