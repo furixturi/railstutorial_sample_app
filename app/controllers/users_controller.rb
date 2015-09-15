@@ -9,12 +9,23 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user]) # not final implementation
+    # @user = User.new(params[:user]) # not final implementation, Rails will raise an error because it's not secure
+    
+    # user_params is defined underneath after private keyword
+    @user = User.new(user_params)
+
     if @user.save
       # handle successful save
     else
       render 'new'
     end
   end
+
+  private
+
+    def user_params
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+  
 
 end
