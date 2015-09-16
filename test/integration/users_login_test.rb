@@ -4,6 +4,12 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
+
+  def setup
+    @user = users(:michael)
+  end
+
+  
   test "login with invalid information" do
     get login_path
     assert_template 'sessions/new'
