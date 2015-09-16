@@ -9,7 +9,17 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     @user = users(:michael)
   end
 
-  
+  test "login with valid information" do
+    get login_path
+    post login_path, session: { email: @user.email, password: 'password' }
+    assert_redirected_to @user # assert redirected to user page
+    follow_redirect! # actually visit the redirected page
+    assert_template 'users/show'
+    assert_select "a[href=?]", login_path, count: 0
+    assert_select "a[href=?]", logout_path
+    assert_select "a[href=?]", user_path(@user)
+  end
+
   test "login with invalid information" do
     get login_path
     assert_template 'sessions/new'
