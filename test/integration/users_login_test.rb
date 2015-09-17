@@ -20,8 +20,13 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", user_path(@user), {}, "user profile link should be added"
 
     # test log out
-
-
+    delete logout_path
+    assert_not is_logged_in?, "should not be logged in any more"
+    assert_redirected_to root_url, "should be redirected to root"
+    follow_redirect!
+    assert_select "a[href=?]", login_path, {}, "should see log in link"
+    assert_select "a[href=?]", logout_path, {count:0}, "should not see log out link"
+    assert_select "a[href=?]", user_path(@user), {count:0}, "should not see user profile link" 
   end
 
   test "login with invalid information" do
