@@ -20,6 +20,7 @@ module SessionsHelper
     # if a user has previously logged himself in then closed the browser,
     # his user_id will be saved in cookie, encrypted by the signed method
     elsif (user_id = cookies.signed[:user_id])
+      raise # The tests still pass, so this branch is currently untested
       user = User.find_by(id: user_id)
       if user && user.authenticated?(cookies[:remember_token])
         log_in user
