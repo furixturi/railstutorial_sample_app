@@ -9,7 +9,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     @user = users(:michael)
   end
 
-  test "login with valid information" do
+  test "login with valid information followed by logout" do
     get login_path
     post login_path, session: { email: @user.email, password: 'password' }
     assert_redirected_to @user, "should redirect to user_path(@user)" # assert redirected to user page
@@ -27,6 +27,14 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_select "a[href=?]", login_path, {}, "should see log in link"
     assert_select "a[href=?]", logout_path, {count:0}, "should not see log out link"
     assert_select "a[href=?]", user_path(@user), {count:0}, "should not see user profile link" 
+  
+    # Simulate a user clicking logout in a second window
+    delete logout_path
+    follow_redirect!
+    assert_select "a[href=?]", login_path
+    assert_select "a[href=?]", logout_path, count: 0
+    assert_select "a[href=?]", user_path, count: 0
+
   end
 
   test "login with invalid information" do
