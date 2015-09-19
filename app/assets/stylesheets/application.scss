@@ -103,6 +103,16 @@ input {
   height: auto !important;
 }
 
+.form-group.checkbox {
+  
+  input[type=checkbox] {
+    width: 20px;
+    margin-left: 0;
+
+  }
+
+}
+
 #error_explanation {
   color: red;
   ul {
