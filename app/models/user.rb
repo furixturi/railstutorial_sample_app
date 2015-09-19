@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  attr_accessor :remember_token
   # neutralize user submitted email cases
   before_save { email.downcase! }
 
@@ -23,6 +24,10 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
 
+  def remember
+    self.remember_token = User.new_token
+    update_attribute(:remember_digest, User.digest(remmeber_token))
+  end
   # ======== class methods
   # Returns the hash digest of the given string
   def User.digest(string)
