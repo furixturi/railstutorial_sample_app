@@ -30,7 +30,8 @@ class User < ActiveRecord::Base
     update_attribute(:remember_digest, User.digest(remember_token))
   end
 
-  # Forgets a user for logging out
+  # Forgets a user for logging out 
+  # by setting its :remember_digest attribute in database to nil
   def forget
     update_attribute(:remember_digest, nil)
   end
