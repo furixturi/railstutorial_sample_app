@@ -1,6 +1,7 @@
 module SessionsHelper
 
   # Logs in the given user.
+  # used in sessions_controller and users_controller
   def log_in(user)
     session[:user_id] = user.id
   end
@@ -12,6 +13,7 @@ module SessionsHelper
     cookies.permanent[:remember_token] = user.remember_token
   end
 
+  # check log in status then sets and returns the @current_user or nil
   def current_user
     # if a user just logged himself in, his user id will be saved in session
     if (user_id = session[:user_id])

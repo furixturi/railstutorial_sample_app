@@ -1,14 +1,15 @@
+# sign up
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
-    # debugger
+    # debugger # can debug with byebug in rails console
   end
 
-  def new
+  def new # open register form
     @user = User.new
   end
 
-  def create
+  def create # post register form
     # @user = User.new(params[:user]) # not final implementation, Rails will raise an error because it's not secure
     
     # user_params is defined underneath after private keyword
@@ -19,6 +20,7 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user # equals to user_url(@user)
     else
+      # the form_for(@user) method in view will create the flash error messages for us
       render 'new'
     end
   end
