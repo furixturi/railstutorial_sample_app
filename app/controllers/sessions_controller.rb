@@ -6,10 +6,10 @@ class SessionsController < ApplicationController
   def create # submit login form post request
     @user = User.find_by(email: params[:session][:email].downcase)
     if @user && @user.authenticate(params[:session][:password])
-      #log in the user and redirect to user's show page
+      #log in the user and redirect to the url that the user tried to access before logging in, otherwise to user's show page
       log_in @user
       params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
-      redirect_to @user
+      redirect_back_or @user # redirect_back_or is defined in sessions_helper.rb
     else
       # flash.now show message only in rendered page
       flash.now[:danger] = 'Invalid email/password combination'
