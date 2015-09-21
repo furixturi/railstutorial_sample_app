@@ -31,6 +31,7 @@ module SessionsHelper
     end
   end
 
+  # used in sessions_controller and users_controller
   def logged_in?
     !current_user.nil?
   end

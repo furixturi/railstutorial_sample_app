@@ -47,7 +47,7 @@ class UsersController < ApplicationController
     end
   
     def logged_in_user
-      unless logged_in?
+      unless logged_in? # defined in sessions_helper.rb
         flash[:danger] = "Pleaser log in."
         redirect_to login_url
       end
