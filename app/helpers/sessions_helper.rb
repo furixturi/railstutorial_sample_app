@@ -63,7 +63,7 @@ module SessionsHelper
 
   # Stores the URL trying to be accessed
   def store_location
-    session[:forwarding_url] = request.url if request.get?
+    session[:forwarding_url] = request.url if request.get? # only store get request so a form submit (post, patch or delete) will not be stored and redirected to to cause error
   end
 
 
