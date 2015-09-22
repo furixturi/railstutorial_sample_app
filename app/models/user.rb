@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessor :remember_token, :activation_token
   # neutralize user submitted email cases
-  before_save { email.downcase! }
+  before_save :downcase_email
   before_create :create_activation_digest
 
   # validate name presence and max length
@@ -47,6 +47,10 @@ class User < ActiveRecord::Base
 
   # private methods
   private
+    def downcase_email
+      email.downcase!
+    end
+
     def create_activation_digest
       self.activation_token = User.new_token
       self.activation_digest = User.digest(activation_token)
