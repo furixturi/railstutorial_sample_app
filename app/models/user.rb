@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :activation_token
   # neutralize user submitted email cases
   before_save { email.downcase! }
   before_create :create_activation_digest
