@@ -48,7 +48,9 @@ class User < ActiveRecord::Base
   # private methods
   private
     def create_activation_digest
-
+      self.activation_token = User.new_token
+      self.activation_digest = User.digest(activation_token)
+      # activation_digest will be automatically saved to db since there is a db column for it
     end
 
   # ======== class methods
