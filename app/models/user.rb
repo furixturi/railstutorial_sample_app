@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   attr_accessor :remember_token
   # neutralize user submitted email cases
   before_save { email.downcase! }
+  before_create :create_activation_digest
 
   # validate name presence and max length
   validates :name, presence: true, length: { maximum: 50 }
@@ -43,6 +44,12 @@ class User < ActiveRecord::Base
     # decrypt current remember_digest attribute and compare it to remember_token
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
+
+  # private methods
+  private
+    def create_activation_digest
+
+    end
 
   # ======== class methods
   class << self
