@@ -8,7 +8,7 @@
 
 User.create!(name: "Example User",
 			       email: "example@railstutorial.org",
-             password: "footar",
+             password: "foobar",
              password_confirmation: "foobar")
 
 99.times do |n|
@@ -17,6 +17,9 @@ User.create!(name: "Example User",
   password = "password"
   User.create!( name: name,
                 email: email,
-                passwrod: password,
+                password: password,
                 password_confirmation: password)
 end
+
+# $ bundle exec rake db:migrate:reset
+# $ bundle exec rake db:seed
