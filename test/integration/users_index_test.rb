@@ -18,7 +18,7 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     User.paginate(page: 1, per_page: 20).each do |user|
       assert_select 'a[href=?]', user_path(user), {
           text: user.name
-        }, "#{user_path(user)}, #{user.name}"
+        }, "cannot find #{user_path(user)}, #{user.name}"
     end
   end
 end
