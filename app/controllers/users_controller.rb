@@ -32,11 +32,11 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
+  def edit # open edit form
     # @user = User.find(params[:id]) # will be already assigned in before filter correct_user method
   end
 
-  def update # path edit_user_path(@user)
+  def update # path edit_user_path(@user), patch updated attributes
     # @user = User.find(params[:id]) # already assigned in before filter correct_user method
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
@@ -46,7 +46,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy # delete method
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to users_url
