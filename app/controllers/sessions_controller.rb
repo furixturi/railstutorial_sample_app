@@ -4,14 +4,14 @@ class SessionsController < ApplicationController
   end
 
   def create # submit login form post request
-    user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
+    @user = User.find_by(email: params[:session][:email].downcase)
+    if @user && @user.authenticate(params[:session][:password])
 
-      if user.activated?
+      if @user.activated?
         #log in the user and redirect to the url that the user tried to access before logging in, otherwise to user's show page
-        log_in user
-        params[:session][:remember_me] == '1' ? remember(user) : forget(user)
-        redirect_back_or user # redirect_back_or is defined in sessions_helper.rb
+        log_in @user
+        params[:session][:remember_me] == '1' ? remember(@user) : forget(@user)
+        redirect_back_or @user # redirect_back_or is defined in sessions_helper.rb
       else
         flash[:warning] = "Account not activated. Check your email for the activation link"
         redirect_to root_url
