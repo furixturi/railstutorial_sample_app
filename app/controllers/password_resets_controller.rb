@@ -1,5 +1,8 @@
 # $ rails generate controller PasswordResets new edit --no-test-framework
 class PasswordResetsController < ApplicationController
+  before_action :get_user, only: [:edit, :update]
+  before_action :validate_user, only: [:edit, :update]
+  # require password reset form
   def new # get new_password_reset_path /password_resets/new
   end
 
@@ -16,9 +19,21 @@ class PasswordResetsController < ApplicationController
     end
   end
 
+  # set new password form
   def edit # get edit_password_reset_path(token) /password_resets/<token>/edit
   end
 
   def update # patch password_reset_path(token) /password_resets/<token>
   end
+
+  private
+    def get_user
+      @user = User.find_by(email: params[:email])
+    end
+
+    def validate_user
+      unless (@user && @user.activated? && @user.authenticated?(:reset, params[:id]))
+        redirect_to root_url
+      end
+    end
 end
