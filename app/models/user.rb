@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessor :remember_token, :activation_token
+  attr_accessor :remember_token, :activation_token, :reset_token
   # neutralize user submitted email cases
   before_save :downcase_email
   before_create :create_activation_digest
@@ -40,11 +40,31 @@ class User < ActiveRecord::Base
 
   # Returns true if the given token matches the digest
   def authenticated?(attribute, token)
-    # digest = self.send("#{attribute}_digest")
     digest = send("#{attribute}_digest")
     return false if digest.nil?
     # decrypt current remember_digest attribute and compare it to remember_token
     BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  # account activation
+  def activate
+    update_attribute(:activated, true)
+    update_attribute(:activated_at, Time.zone.now)
+  end
+
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
+  
+  # reset password
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest, User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver_now
   end
 
   # private methods
