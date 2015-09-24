@@ -22,6 +22,10 @@ class PasswordResetsController < ApplicationController
 
   # set new password form
   def edit # get edit_password_reset_path(token) /password_resets/<token>/edit
+
+  end
+
+  def update # patch password_reset_path(token) /password_resets/<token>
     if params[:user][:password].empty?
       @user.errors.add(:password, "Can't be empty")
       render 'edit'
@@ -30,9 +34,6 @@ class PasswordResetsController < ApplicationController
       flash[:success] = "Password has been reset."
       redirect_to @user
     end
-  end
-
-  def update # patch password_reset_path(token) /password_resets/<token>
   end
 
   private
