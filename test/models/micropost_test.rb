@@ -25,6 +25,7 @@ class MicropostTest < ActiveSupport::TestCase
     assert_not @micropost.valid?
   end
 
+  # $ bundle exec rake test TEST=test/models/micropost_test.rb TESTOPTS="--name test_order_should_be_most_recent_first"
   test "order should be most recent first" do
     assert_equal microposts(:most_recent), Micropost.first
   end
