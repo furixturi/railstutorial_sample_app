@@ -72,4 +72,11 @@ class UsersControllerTest < ActionController::TestCase
     }
     assert_not @other_user.reload.admin?
   end
+
+  test "try to see inactivated user should be redirect to root" do
+    @other_user.update_attribute(:activated, false)
+    log_in_as(@user)
+    get :show, id: @other_user
+    assert_redirected_to root_url
+  end
 end
