@@ -3,7 +3,7 @@ class PasswordResetsController < ApplicationController
   before_action :get_user, only: [:edit, :update]
   before_action :validate_user, only: [:edit, :update]
   before_action :check_expiration, only: [:edit, :update]
-  # require password reset form
+  # require password reset form (with one input for email)
   def new # get new_password_reset_path /password_resets/new
   end
 
@@ -20,7 +20,7 @@ class PasswordResetsController < ApplicationController
     end
   end
 
-  # set new password form
+  # set new password form (with two inputs for password and password_confirmation)
   def edit # get edit_password_reset_path(token) /password_resets/<token>/edit
 
   end
