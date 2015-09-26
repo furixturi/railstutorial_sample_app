@@ -48,4 +48,14 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     get users_path
     assert_select 'a', text: 'delete', count: 0
   end
+
+
+  test "should only show activated user in index" do
+    @non_admin.update_attribute(:activated, false)
+    log_in_as(@user)
+    get users_path
+    users = assigns(:users)
+    assert_equal 1, User.count - users.count, "one users is inactivated and should not be shown"
+  end
+
 end
