@@ -7,9 +7,17 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.create!(name: "Example User",
-			       email: "example@railstutorial.org",
+             email: "example@railstutorial.org",
              password: "foobar",
              password_confirmation: "foobar",
+             admin: true,
+             activated: true,
+             activated_at: Time.zone.now)
+
+User.create!(name: "Xiaoli Shen",
+			       email: "alabebop@gmail.com",
+             password: "wancaii321",
+             password_confirmation: "wancaii321",
              admin: true,
              activated: true,
              activated_at: Time.zone.now)
@@ -24,6 +32,12 @@ User.create!(name: "Example User",
                 password_confirmation: password,
                 activated: true,
                 activated_at: Time.zone.now)
+end
+
+users = User.order(:created_at).take(6)
+50.times do
+  content = Faker::Lorem.sentence(5)
+  users.each { |user| user.microposts.create!(content: content) }
 end
 
 # $ bundle exec rake db:migrate:reset
