@@ -60,15 +60,6 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
-  
-    # Confirm a logged in user
-    def logged_in_user
-      unless logged_in? # defined in sessions_helper.rb
-        store_location # defined in sessions_helper.rb
-        flash[:danger] = "Pleaser log in."
-        redirect_to login_url
-      end
-    end
 
     # Confirms the correct user.
     # redirect to root if not the current_user
