@@ -13,6 +13,6 @@ end
 # 2) Create a user via AWS Identity and Access Management (IAM) and record the access key and secret key.
 # 3) Create an S3 bucket (with a name of your choice) using the AWS Console, and then grant read and write permission to the user created in the previous step.
 # heroku commands for setting environment variables
-# $ heroku config:set S3_ACCESS_KEY=<access key>
-# $ heroku config:set S3_SECRET_KEY=<secret key>
-# $ heroku config:set S3_BUCKET=<bucket name>
+# $ heroku config:set S3_ACCESS_KEY=AKIAI4KEAKKUEK47FALQ
+# $ heroku config:set S3_SECRET_KEY=h7BSnzF78LBYlJ6FPx70R0q6SZtQGXuowzFJOR3m
+# $ heroku config:set S3_BUCKET=alabebop-railstutorial-sampleapp
