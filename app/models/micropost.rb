@@ -9,7 +9,8 @@ class Micropost < ActiveRecord::Base
 
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
-  validates :picture_size
+  # use validate to call a custom validate function
+  validate :picture_size
 
   private
     # Validates the size of an uploaded picture
