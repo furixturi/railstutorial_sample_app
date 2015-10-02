@@ -7,7 +7,11 @@ Rails.application.routes.draw do
 
   # users
   get 'signup' => 'users#new'
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
 
   # sessions
   get 'login' => 'sessions#new'
